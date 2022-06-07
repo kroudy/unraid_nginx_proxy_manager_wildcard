@@ -3,11 +3,20 @@
 # Author: Kyle Roudebush {https://github.com/kroudy} under GPL v2.x+
 # -------------------------------------------------------------------------------
 
-LANNAME=$(hostname -s) # Server name
-PEM="/boot/config/ssl/certs/${LANNAME}_unraid_bundle.pem" # SSL certificate location
-NGINX="/mnt/user/appdata/nginx-proxy" # Nginx Proxy Manager appdata folder
+# SETTINGS
+NGINX="/mnt/user/appdata/nginx-proxy" # location of Nginx Proxy Manager appdata folder e.g. /mnt/user/appdata/NginxProxyManager
 CERTNUM="24" # Nginx Certificate number
 DAYS="604800" # Number of days (in seconds) until certificate expires. (currently 7 days)
+
+####### END SETTINGS #######
+
+###############################################################################
+#####   DO NOT EDIT ANYTHING BELOW UNLESS YOU KNOW WHAT YOU ARE DOING   #######
+###############################################################################
+
+# Certificate location and expiration check
+LANNAME=$(hostname -s) # Server name
+PEM="/boot/config/ssl/certs/${LANNAME}_unraid_bundle.pem" # SSL certificate location
 
 /usr/bin/openssl x509 -enddate -noout -in $PEM -checkend $DAYS | grep -q 'Certificate will expire'
  
